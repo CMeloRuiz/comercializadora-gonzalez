@@ -1,0 +1,28 @@
+.reveal {
+  opacity: 0;
+  transition:
+    opacity var(--lento) var(--ease),
+    transform var(--lento) var(--ease);
+  will-change: opacity, transform;
+}
+
+.reveal--abajo {
+  transform: translateY(28px);
+}
+
+.reveal--izquierda {
+  transform: translateX(-32px);
+}
+
+.reveal--derecha {
+  transform: translateX(32px);
+}
+
+.reveal--escala {
+  transform: scale(0.94);
+}
+
+.reveal--visible {
+  opacity: 1;
+  transform: none;
+}

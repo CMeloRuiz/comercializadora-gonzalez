@@ -1,0 +1,198 @@
+.adm-login {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  background: var(--adm-superficie);
+}
+
+/* ---------------------------- Panel de marca ---------------------------- */
+
+.adm-login__marca {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px;
+  overflow: hidden;
+  color: #fff;
+  background:
+    radial-gradient(700px 500px at 110% 110%, rgba(32, 120, 176, 0.65), transparent 60%),
+    radial-gradient(500px 400px at -10% -10%, rgba(32, 120, 176, 0.35), transparent 60%),
+    var(--adm-marino);
+}
+
+/* Cuadricula sutil de fondo */
+.adm-login__marca::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at 30% 40%, #000, transparent 75%);
+}
+
+.adm-login__logo {
+  position: relative;
+  width: 210px;
+  height: auto;
+}
+
+.adm-login__frase {
+  position: relative;
+  max-width: 420px;
+}
+
+.adm-login__frase h2 {
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+
+.adm-login__frase p {
+  margin-top: 12px;
+  font-size: 16px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.adm-login__tarjetas {
+  position: absolute;
+  right: -40px;
+  top: 22%;
+  width: 300px;
+  height: 260px;
+}
+
+.adm-login__tarjeta {
+  position: absolute;
+  width: 220px;
+  height: 130px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(6px);
+  animation: adm-login-flotar 7s ease-in-out infinite;
+}
+
+.adm-login__tarjeta--1 {
+  top: 0;
+  right: 40px;
+}
+
+.adm-login__tarjeta--2 {
+  top: 70px;
+  right: 0;
+  animation-delay: -2.5s;
+}
+
+.adm-login__tarjeta--3 {
+  top: 140px;
+  right: 80px;
+  animation-delay: -5s;
+}
+
+@keyframes adm-login-flotar {
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* ------------------------------ Formulario ------------------------------ */
+
+.adm-login__formulario {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+}
+
+.adm-login__volver {
+  position: absolute;
+  top: 28px;
+  left: 28px;
+  margin: 0;
+}
+
+.adm-login__caja {
+  width: min(100%, 380px);
+  display: grid;
+  gap: 18px;
+  animation: adm-pagina 400ms var(--adm-ease);
+}
+
+.adm-login__candado {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--adm-radio-lg);
+  border: 1px solid var(--adm-borde);
+  box-shadow: var(--adm-sombra-sm);
+  color: var(--adm-texto-2);
+}
+
+.adm-login__candado svg {
+  width: 22px;
+  height: 22px;
+}
+
+.adm-login__caja h1 {
+  font-size: 26px;
+  letter-spacing: -0.025em;
+  margin-top: 6px;
+}
+
+.adm-login__subtitulo {
+  margin-top: -12px;
+  color: var(--adm-texto-3);
+}
+
+.adm-login__clave {
+  padding-right: 42px;
+}
+
+.adm-login__ver {
+  position: absolute;
+  right: 6px;
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--adm-radio-sm);
+  color: var(--adm-texto-3);
+}
+
+.adm-login__ver:hover {
+  background: var(--adm-hover);
+  color: var(--adm-texto);
+}
+
+.adm-login__ver svg {
+  width: 17px;
+  height: 17px;
+}
+
+.adm-login__entrar {
+  height: 42px;
+  margin-top: 4px;
+}
+
+.adm-login__pie {
+  position: absolute;
+  bottom: 24px;
+  font-size: 12px;
+  color: var(--adm-texto-4);
+}
+
+@media (max-width: 900px) {
+  .adm-login {
+    grid-template-columns: 1fr;
+  }
+
+  .adm-login__marca {
+    display: none;
+  }
+}

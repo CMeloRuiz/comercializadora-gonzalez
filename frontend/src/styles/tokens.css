@@ -1,0 +1,91 @@
+/**
+ * ===== Tokens de diseno del sitio publico =====
+ *
+ * Toda la paleta, tipografia, espaciados y sombras salen de aqui. Los colores
+ * de marca vienen del logo (azul #2078B0 y azul profundo #105078) y del azul
+ * marino que ya usaba el sitio anterior (#112461).
+ *
+ * Convencion: ningun componente escribe un color "a mano"; usa estas variables.
+ */
+
+:root {
+  /* --- Marca --- */
+  --azul-50: #eef6fc;
+  --azul-100: #d9ebf7;
+  --azul-200: #b3d6ee;
+  --azul-400: #4a97c9;
+  --azul-500: #2078b0; /* azul del logo */
+  --azul-600: #1a6699;
+  --azul-700: #105078; /* azul profundo del logo */
+  --marino-800: #112461; /* azul marino del sitio anterior */
+  --marino-900: #0b1a45;
+  --marino-950: #07112e;
+
+  /* Acento calido, con moderacion: etiquetas "Nuevo" y detalles */
+  --acento-400: #fbbf24;
+  --acento-500: #f59e0b;
+
+  /* WhatsApp: verde oscurecido para que el texto blanco sea legible */
+  --whatsapp: #128c47;
+  --whatsapp-hover: #0e753b;
+  --whatsapp-claro: #e7f7ee;
+
+  /* --- Neutros --- */
+  --blanco: #ffffff;
+  --gris-25: #fafbfd;
+  --gris-50: #f4f7fb;
+  --gris-100: #eaeff5;
+  --gris-200: #dbe2eb;
+  --gris-300: #c3ccd8;
+  --gris-400: #939eb0;
+  --gris-500: #6b7688;
+  --gris-600: #505a6b;
+  --gris-700: #3a4352;
+  --gris-900: #111827;
+
+  /* --- Semanticos --- */
+  --texto: #0f1b33;
+  --texto-suave: var(--gris-600);
+  --texto-tenue: var(--gris-500);
+  --fondo: var(--blanco);
+  --fondo-alterno: var(--gris-50);
+  --borde: var(--gris-200);
+  --exito: #16a34a;
+  --peligro: #dc2626;
+
+  /* --- Tipografia --- */
+  --fuente: 'Outfit', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --texto-xs: 0.75rem;
+  --texto-sm: 0.875rem;
+  --texto-base: 1rem;
+  --texto-lg: 1.125rem;
+  --texto-xl: 1.375rem;
+  --texto-2xl: clamp(1.6rem, 1.2rem + 1.4vw, 2.25rem);
+  --texto-3xl: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  --texto-4xl: clamp(2.4rem, 1.5rem + 3.6vw, 4.1rem);
+
+  /* --- Espaciado y forma --- */
+  --contenedor: 1240px;
+  --gutter: clamp(16px, 4vw, 32px);
+  --seccion: clamp(64px, 8vw, 112px);
+  --radio-sm: 8px;
+  --radio: 14px;
+  --radio-lg: 22px;
+  --radio-xl: 32px;
+  --radio-pill: 999px;
+
+  /* --- Sombras --- */
+  --sombra-xs: 0 1px 2px rgba(15, 27, 51, 0.06);
+  --sombra-sm: 0 2px 8px rgba(15, 27, 51, 0.06), 0 1px 2px rgba(15, 27, 51, 0.04);
+  --sombra: 0 10px 30px -12px rgba(15, 27, 51, 0.18);
+  --sombra-lg: 0 24px 60px -20px rgba(11, 26, 69, 0.3);
+  --sombra-azul: 0 14px 30px -12px rgba(32, 120, 176, 0.55);
+
+  /* --- Movimiento --- */
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --rapido: 160ms;
+  --medio: 320ms;
+  --lento: 700ms;
+
+  --alto-header: 76px;
+}

@@ -1,0 +1,106 @@
+# Blueprint de Render para Comercializadora Gonzalez
+#
+# Declara los dos servicios del proyecto:
+#   - comercializadora-gonzalez-api  : el backend Express (Web Service)
+#   - comercializadora-gonzalez      : el sitio publico (Static Site)
+#
+# Para usarlo: Render -> New -> Blueprint -> apuntar al repositorio.
+# Render pedira al aplicarlo los valores marcados "sync: false" y los guarda
+# cifrados. Nunca se commitean credenciales aqui.
+#
+# El repositorio usa workspaces de npm: el package-lock.json vive en la raiz,
+# asi que ambos servicios instalan desde la raiz y no desde su subcarpeta.
+
+services:
+  # ---------------------------------------------------------------------------
+  # API (Express + PostgreSQL en Supabase)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: comercializadora-gonzalez-api
+    env: node
+    plan: free
+    region: oregon
+    buildCommand: npm install
+    startCommand: npm start
+
+    # Render consulta esta ruta para saber si el servicio esta vivo. Responde
+    # sin tocar la base, asi que sigue sirviendo aunque Supabase falle.
+    healthCheckPath: /api/salud
+
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+
+      # Cadena de Supabase: Session pooler (puerto 5432), con la clave de la base.
+      - key: DATABASE_URL
+        sync: false
+
+      # Sesion del panel: generar con
+      #   node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"
+      - key: JWT_SECRETO
+        sync: false
+      - key: JWT_DURACION
+        value: 8h
+
+      # Administrador del panel. El hash se genera con "npm run hash".
+      - key: ADMIN_USUARIO
+        sync: false
+      - key: ADMIN_CLAVE_HASH
+        sync: false
+
+      # Imagenes en Supabase Storage (clave secreta, nunca la publicable)
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_SERVICE_KEY
+        sync: false
+      - key: SUPABASE_BUCKET
+        value: catalogo
+      - key: MAX_IMAGEN_MB
+        value: 8
+
+      # Quien puede llamar a la API. Se completa con la URL del sitio una vez
+      # creado (Render no la conoce antes del primer despliegue).
+      - key: ORIGENES_PERMITIDOS
+        sync: false
+
+  # ---------------------------------------------------------------------------
+  # Sitio publico (React + Vite, estatico)
+  # ---------------------------------------------------------------------------
+  - type: web
+    name: comercializadora-gonzalez
+    env: static
+    buildCommand: npm install && npm run build
+    staticPublishPath: frontend/dist
+
+    # React Router maneja las rutas: cualquier ruta que no sea un archivo
+    # devuelve index.html. Sin esto, recargar /productos da 404.
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+    headers:
+      # Los assets de Vite llevan hash en el nombre: se cachean indefinidamente
+      - path: /assets/*
+        name: Cache-Control
+        value: public, max-age=31536000, immutable
+      - path: /productos/*.webp
+        name: Cache-Control
+        value: public, max-age=604800
+
+    envVars:
+      # URL de la API. Se toma del otro servicio para no copiarla a mano: Render
+      # define RENDER_EXTERNAL_URL en cada Web Service con su URL publica.
+      #
+      # Se incrusta en el bundle al compilar, asi que cambiarla exige volver a
+      # desplegar el sitio.
+      - key: VITE_API_URL
+        fromService:
+          type: web
+          name: comercializadora-gonzalez-api
+          envVarKey: RENDER_EXTERNAL_URL
+
+      # URL publica del sitio, para el enlace que acompana los mensajes de
+      # WhatsApp. Se completa tras el primer despliegue.
+      - key: VITE_SITIO_URL
+        sync: false

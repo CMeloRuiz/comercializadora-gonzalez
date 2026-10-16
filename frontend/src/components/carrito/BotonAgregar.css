@@ -1,0 +1,84 @@
+/* ------------------------- Boton redondo (tarjetas) ------------------------- */
+
+.agregar--icono {
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--azul-50);
+  color: var(--azul-600);
+  transition:
+    background-color var(--rapido) ease,
+    color var(--rapido) ease,
+    transform var(--medio) var(--ease);
+}
+
+.agregar--icono svg {
+  width: 21px;
+  height: 21px;
+}
+
+.agregar--icono:hover {
+  background: var(--azul-500);
+  color: var(--blanco);
+  transform: scale(1.1);
+}
+
+/* Punto que indica "ya esta en la cotizacion" */
+.agregar__punto {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--azul-500);
+  border: 2px solid var(--blanco);
+}
+
+.agregar--icono.agregar--puesto {
+  background: var(--azul-100);
+}
+
+/* ---------------------------- Confirmacion ---------------------------- */
+
+.agregar--hecho,
+.agregar--hecho:hover {
+  background: var(--whatsapp-claro);
+  color: var(--whatsapp);
+  border-color: var(--whatsapp-claro);
+  transform: none;
+}
+
+.agregar--hecho svg {
+  animation: agregar-check 320ms var(--ease);
+}
+
+@keyframes agregar-check {
+  from {
+    transform: scale(0.4);
+    opacity: 0;
+  }
+}
+
+/* --------------------------- Boton con texto --------------------------- */
+
+.agregar--completo {
+  justify-content: center;
+}
+
+@media (max-width: 560px) {
+  .agregar--icono {
+    width: 38px;
+    height: 38px;
+  }
+
+  .agregar--icono svg {
+    width: 18px;
+    height: 18px;
+  }
+}

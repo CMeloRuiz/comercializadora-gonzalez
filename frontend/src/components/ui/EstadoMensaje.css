@@ -1,0 +1,52 @@
+.estado-mensaje {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: clamp(40px, 7vw, 72px) 24px;
+  border: 1.5px dashed var(--gris-200);
+  border-radius: var(--radio-lg);
+  background: var(--gris-25);
+}
+
+.estado-mensaje__icono {
+  width: 68px;
+  height: 68px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--azul-50);
+  color: var(--azul-500);
+  margin-bottom: 18px;
+  box-shadow: 0 0 0 10px rgba(32, 120, 176, 0.05);
+}
+
+.estado-mensaje--error .estado-mensaje__icono {
+  background: #fee2e2;
+  color: var(--peligro);
+  box-shadow: 0 0 0 10px rgba(220, 38, 38, 0.05);
+}
+
+.estado-mensaje__icono svg {
+  width: 30px;
+  height: 30px;
+}
+
+.estado-mensaje__titulo {
+  font-size: var(--texto-xl);
+  color: var(--marino-900);
+}
+
+.estado-mensaje__texto {
+  margin-top: 8px;
+  max-width: 440px;
+  color: var(--texto-suave);
+}
+
+.estado-mensaje__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+}

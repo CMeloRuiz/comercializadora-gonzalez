@@ -1,0 +1,33 @@
+{
+  "name": "comercializadora-gonzalez",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sitio web y panel administrativo de Comercializadora Gonzalez S.A.S.",
+  "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "workspaces": [
+    "backend",
+    "frontend"
+  ],
+  "scripts": {
+    "dev": "concurrently -n \"API,WEB\" -c \"blue,magenta\" \"npm:dev:backend\" \"npm:dev:frontend\"",
+    "dev:backend": "npm run dev --workspace backend",
+    "dev:frontend": "npm run dev --workspace frontend",
+    "build": "npm run build --workspace frontend",
+    "start": "npm run start --workspace backend",
+    "lint": "npm run lint --workspace frontend",
+    "db:crear": "npm run db:crear --workspace backend",
+    "db:sembrar": "npm run db:sembrar --workspace backend",
+    "hash": "npm run hash --workspace backend",
+    "setup": "npm install && npm run db:crear && npm run db:sembrar",
+    "db:ping": "npm run db:ping --workspace backend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "overrides": {
+    "rolldown": "1.2.8"
+  }
+}

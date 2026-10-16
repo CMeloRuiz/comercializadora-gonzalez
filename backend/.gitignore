@@ -1,0 +1,8 @@
+node_modules/
+
+# Credenciales reales: nunca al repositorio
+.env
+
+# Imagenes subidas en desarrollo (en produccion van a Cloudinary)
+uploads/*
+!uploads/.gitkeep

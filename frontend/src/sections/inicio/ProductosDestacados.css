@@ -1,0 +1,46 @@
+.destacados__pestanas {
+  display: inline-flex;
+  gap: 4px;
+  padding: 5px;
+  border-radius: var(--radio-pill);
+  background: var(--gris-50);
+  border: 1px solid var(--gris-100);
+  overflow-x: auto;
+  scrollbar-width: none;
+  max-width: 100%;
+}
+
+.destacados__pestana {
+  padding: 9px 18px;
+  border-radius: var(--radio-pill);
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  color: var(--texto-suave);
+  white-space: nowrap;
+  transition:
+    background-color var(--medio) var(--ease),
+    color var(--rapido) ease,
+    box-shadow var(--medio) ease;
+}
+
+.destacados__pestana:hover {
+  color: var(--marino-900);
+}
+
+.destacados__pestana--activa {
+  background: var(--blanco);
+  color: var(--azul-600);
+  box-shadow: var(--sombra-sm);
+}
+
+.destacados__pie {
+  display: flex;
+  justify-content: center;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+
+@media (max-width: 560px) {
+  .destacados__pie .btn {
+    width: 100%;
+  }
+}

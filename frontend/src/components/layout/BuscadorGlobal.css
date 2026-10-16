@@ -1,0 +1,167 @@
+.buscador {
+  position: relative;
+}
+
+.buscador__form {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.buscador__icono,
+.buscador__cargando {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  color: var(--gris-500);
+  pointer-events: none;
+}
+
+.buscador__icono {
+  left: 14px;
+}
+
+.buscador__cargando {
+  right: 14px;
+  animation: buscador-giro 0.8s linear infinite;
+}
+
+@keyframes buscador-giro {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.buscador__input {
+  width: 100%;
+  height: 44px;
+  padding: 0 40px 0 42px;
+  border-radius: var(--radio-pill);
+  border: 1.5px solid var(--gris-200);
+  background: var(--gris-50);
+  font-size: var(--texto-sm);
+  transition:
+    border-color var(--rapido) ease,
+    background-color var(--rapido) ease,
+    box-shadow var(--rapido) ease;
+}
+
+.buscador__input::placeholder {
+  color: var(--gris-500);
+}
+
+.buscador__input:focus {
+  outline: none;
+  background: var(--blanco);
+  border-color: var(--azul-500);
+  box-shadow: 0 0 0 4px var(--azul-100);
+}
+
+/* Quita la "x" nativa de los input search, ya hay un solo gesto: borrar */
+.buscador__input::-webkit-search-cancel-button {
+  appearance: none;
+}
+
+.buscador__panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  min-width: 320px;
+  z-index: 60;
+  padding: 8px;
+  background: var(--blanco);
+  border: 1px solid var(--gris-100);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra-lg);
+  animation: buscador-entrada var(--medio) var(--ease);
+}
+
+@keyframes buscador-entrada {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.buscador__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px;
+  border-radius: var(--radio-sm);
+  transition: background-color var(--rapido) ease;
+}
+
+.buscador__item:hover,
+.buscador__item--activo {
+  background: var(--azul-50);
+}
+
+.buscador__miniatura {
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radio-sm);
+  background: var(--gris-50);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+}
+
+.buscador__miniatura img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 4px;
+}
+
+.buscador__info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.buscador__nombre {
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  color: var(--marino-900);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.buscador__categoria {
+  font-size: var(--texto-xs);
+  color: var(--texto-tenue);
+}
+
+.buscador__vacio {
+  padding: 14px 10px;
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
+}
+
+.buscador__todos {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 4px;
+  padding: 10px;
+  border-radius: var(--radio-sm);
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  color: var(--azul-600);
+  border-top: 1px solid var(--gris-100);
+}
+
+.buscador__todos:hover {
+  background: var(--gris-50);
+}
+
+.buscador__todos svg {
+  width: 16px;
+  height: 16px;
+}

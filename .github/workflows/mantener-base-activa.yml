@@ -1,0 +1,44 @@
+# Mantiene despierto el proyecto de Supabase.
+#
+# En el plan gratuito, Supabase pausa un proyecto tras ~7 dias sin actividad y
+# hay que restaurarlo a mano. Esta tarea hace una consulta diaria, que cuenta
+# como actividad, y el proyecto nunca se pausa.
+#
+# ANTES DE QUE FUNCIONE hay que crear el secreto con la cadena de conexion:
+#   GitHub -> Settings -> Secrets and variables -> Actions -> New repository secret
+#   Nombre: DATABASE_URL     Valor: la misma cadena del backend/.env
+#
+# Aviso de GitHub: si el repositorio pasa 60 dias sin commits, desactiva las
+# tareas programadas y avisa por correo. Basta con reactivarla desde la pestana
+# Actions.
+
+name: Mantener la base activa
+
+on:
+  schedule:
+    # Todos los dias a las 13:40 UTC (8:40 a.m. en Colombia).
+    # El minuto no es redondo a proposito: a las horas en punto GitHub se
+    # congestiona y las tareas se retrasan.
+    - cron: '40 13 * * *'
+  # Tambien se puede lanzar a mano desde la pestana Actions
+  workflow_dispatch:
+
+jobs:
+  consultar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Instalar solo lo que necesita el backend
+        run: npm install --omit=dev --workspace backend
+
+      - name: Consultar la base
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        run: npm run db:ping

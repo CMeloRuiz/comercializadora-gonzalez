@@ -1,0 +1,73 @@
+.wa-flotante {
+  position: fixed;
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 58px;
+  padding: 0 20px 0 16px;
+  border-radius: var(--radio-pill);
+  background: var(--whatsapp);
+  color: var(--blanco);
+  font-weight: 600;
+  box-shadow: 0 16px 36px -12px rgba(18, 140, 71, 0.65);
+  opacity: 0;
+  transform: translateY(24px) scale(0.9);
+  pointer-events: none;
+  transition:
+    opacity var(--medio) var(--ease),
+    transform var(--medio) var(--ease),
+    background-color var(--rapido) ease;
+}
+
+.wa-flotante--visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.wa-flotante:hover {
+  background: var(--whatsapp-hover);
+}
+
+.wa-flotante svg {
+  width: 28px;
+  height: 28px;
+}
+
+/* Pulso suave para llamar la atencion sin molestar */
+.wa-flotante::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 2px solid var(--whatsapp);
+  animation: wa-pulso 2.6s ease-out infinite;
+  pointer-events: none;
+}
+
+@keyframes wa-pulso {
+  0% {
+    opacity: 0.7;
+    transform: scale(1);
+  }
+  70%,
+  100% {
+    opacity: 0;
+    transform: scale(1.25);
+  }
+}
+
+@media (max-width: 640px) {
+  .wa-flotante {
+    width: 58px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .wa-flotante__texto {
+    display: none;
+  }
+}

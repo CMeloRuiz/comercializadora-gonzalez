@@ -1,0 +1,31 @@
+.grilla-productos {
+  display: grid;
+  gap: clamp(12px, 2vw, 24px);
+  grid-template-columns: repeat(var(--columnas, 4), minmax(0, 1fr));
+}
+
+.grilla-productos--4 {
+  --columnas: 4;
+}
+
+.grilla-productos--3 {
+  --columnas: 3;
+}
+
+@media (max-width: 1100px) {
+  .grilla-productos--4 {
+    --columnas: 3;
+  }
+}
+
+@media (max-width: 820px) {
+  .grilla-productos--4,
+  .grilla-productos--3 {
+    --columnas: 2;
+  }
+}
+
+/* El envoltorio de la animacion debe estirarse para que las tarjetas de una fila midan igual */
+.grilla-productos > .reveal {
+  height: 100%;
+}

@@ -1,0 +1,31 @@
+{
+  "name": "comercializadora-gonzalez-backend",
+  "private": true,
+  "version": "1.0.0",
+  "description": "API del catalogo y del panel administrativo de Comercializadora Gonzalez S.A.S.",
+  "type": "module",
+  "main": "src/server.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "node --watch src/server.js",
+    "start": "node src/server.js",
+    "hash": "node src/scripts/generarHash.js",
+    "db:crear": "node src/scripts/crearEsquema.js",
+    "db:sembrar": "node src/scripts/sembrarCatalogo.js",
+    "db:ping": "node src/scripts/mantenerActiva.js"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.118.0",
+    "bcryptjs": "^3.0.3",
+    "cloudinary": "^2.11.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.4.0",
+    "pg": "^8.23.0",
+    "sharp": "^0.35.4"
+  }
+}

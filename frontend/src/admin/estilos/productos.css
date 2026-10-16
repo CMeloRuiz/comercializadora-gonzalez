@@ -1,0 +1,230 @@
+.adm-texto-tenue {
+  color: var(--adm-texto-4);
+}
+
+.adm-nowrap {
+  white-space: nowrap;
+}
+
+.adm-col-centro {
+  text-align: center !important;
+}
+
+.adm-col-acciones {
+  width: 48px;
+  text-align: right;
+}
+
+/* -------------------------------- Filtros -------------------------------- */
+
+.adm-productos {
+  overflow: visible;
+}
+
+.adm-filtros {
+  display: grid;
+  gap: 12px;
+  padding: 12px 16px 16px;
+  border-bottom: 1px solid var(--adm-borde);
+}
+
+.adm-segmentos {
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0 -4px;
+  padding: 0 4px;
+  border-bottom: 1px solid var(--adm-borde);
+}
+
+.adm-segmento {
+  position: relative;
+  padding: 10px 12px;
+  font-weight: 500;
+  color: var(--adm-texto-3);
+  white-space: nowrap;
+  transition: color 120ms ease;
+}
+
+.adm-segmento:hover {
+  color: var(--adm-texto);
+}
+
+.adm-segmento--activo {
+  color: var(--adm-marca-hover);
+  font-weight: 600;
+}
+
+.adm-segmento--activo::after {
+  content: '';
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: -1px;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background: var(--adm-marca);
+  animation: adm-subrayado 220ms var(--adm-ease);
+}
+
+@keyframes adm-subrayado {
+  from {
+    transform: scaleX(0.4);
+    opacity: 0;
+  }
+}
+
+.adm-filtros__controles {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.adm-filtros__busqueda {
+  flex: 1 1 280px;
+}
+
+.adm-filtros__categoria {
+  flex: 0 1 220px;
+}
+
+/* --------------------------------- Tabla --------------------------------- */
+
+.adm-tabla-productos tbody tr {
+  cursor: pointer;
+}
+
+.adm-tabla-productos tbody tr.adm-fila-carga {
+  cursor: default;
+}
+
+.adm-producto-celda {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 260px;
+}
+
+.adm-producto-celda__texto {
+  display: grid;
+  min-width: 0;
+  line-height: 1.35;
+}
+
+.adm-producto-celda__nombre {
+  font-weight: 500;
+  color: var(--adm-texto);
+}
+
+.adm-producto-celda__nombre:hover {
+  color: var(--adm-marca-hover);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.adm-producto-celda__texto span {
+  font-size: 13px;
+  color: var(--adm-texto-3);
+}
+
+.adm-celda-estado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.adm-estrella {
+  width: 32px;
+  height: 32px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: var(--adm-radio-sm);
+  color: var(--adm-texto-4);
+  transition:
+    color 120ms ease,
+    background-color 120ms ease,
+    transform 200ms var(--adm-ease);
+}
+
+.adm-estrella svg {
+  width: 18px;
+  height: 18px;
+}
+
+.adm-estrella:hover {
+  background: var(--adm-hover);
+  color: var(--adm-texto-2);
+}
+
+.adm-estrella--activa,
+.adm-estrella--activa:hover {
+  color: #f5a524;
+}
+
+.adm-estrella--activa svg {
+  fill: currentColor;
+  animation: adm-estrella 320ms var(--adm-ease);
+}
+
+@keyframes adm-estrella {
+  40% {
+    transform: scale(1.35) rotate(-12deg);
+  }
+}
+
+/* ------------------------------ Responsive ------------------------------ */
+
+/* En movil cada fila se convierte en una tarjeta */
+@media (max-width: 760px) {
+  .adm-tabla-productos thead {
+    display: none;
+  }
+
+  .adm-tabla-productos,
+  .adm-tabla-productos tbody,
+  .adm-tabla-productos tr,
+  .adm-tabla-productos td {
+    display: block;
+  }
+
+  .adm-tabla-productos tr {
+    position: relative;
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--adm-borde);
+  }
+
+  .adm-tabla-productos td {
+    padding: 0;
+    border: 0;
+  }
+
+  .adm-tabla-productos td[data-etiqueta='Producto'] {
+    padding-right: 40px;
+    margin-bottom: 10px;
+  }
+
+  .adm-tabla-productos td[data-etiqueta='Categoría'],
+  .adm-tabla-productos td[data-etiqueta='Publicado'],
+  .adm-tabla-productos td[data-etiqueta='Destacado'] {
+    display: inline-flex;
+    vertical-align: middle;
+    margin-right: 12px;
+  }
+
+  .adm-tabla-productos td[data-etiqueta='Precio'],
+  .adm-tabla-productos td[data-etiqueta='Actualizado'] {
+    display: none;
+  }
+
+  .adm-tabla-productos .adm-col-acciones {
+    position: absolute;
+    top: 14px;
+    right: 12px;
+    width: auto;
+  }
+
+  .adm-producto-celda {
+    min-width: 0;
+  }
+}

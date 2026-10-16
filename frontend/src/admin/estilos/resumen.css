@@ -1,0 +1,258 @@
+.adm-resumen__alerta {
+  margin-bottom: 20px;
+}
+
+/* ------------------------------- Metricas ------------------------------- */
+
+.adm-metricas {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.adm-metrica {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 20px;
+}
+
+.adm-metrica__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 500;
+  color: var(--adm-texto-3);
+}
+
+.adm-metrica__icono {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--adm-radio);
+  border: 1px solid var(--adm-borde);
+  color: var(--adm-texto-2);
+}
+
+.adm-metrica__icono svg {
+  width: 16px;
+  height: 16px;
+}
+
+.adm-metrica__icono--marca {
+  background: var(--adm-marca-suave);
+  border-color: var(--adm-marca-borde);
+  color: var(--adm-marca);
+}
+
+.adm-metrica__icono--exito {
+  background: var(--adm-exito-suave);
+  border-color: var(--adm-exito-borde);
+  color: var(--adm-exito);
+}
+
+.adm-metrica__icono--violeta {
+  background: var(--adm-violeta-suave);
+  border-color: #d9d6fe;
+  color: var(--adm-violeta);
+}
+
+.adm-metrica__valor {
+  margin-top: 6px;
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+}
+
+.adm-metrica__detalle {
+  margin-top: 2px;
+  font-size: 13px;
+  color: var(--adm-texto-3);
+}
+
+/* -------------------------------- Rejilla -------------------------------- */
+
+.adm-resumen__rejilla {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.adm-resumen__lateral {
+  display: grid;
+  gap: 20px;
+}
+
+.adm-resumen__nada {
+  color: var(--adm-texto-3);
+}
+
+/* ------------------------------- Recientes ------------------------------- */
+
+.adm-recientes {
+  padding: 6px;
+}
+
+.adm-reciente {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border-radius: var(--adm-radio);
+  transition: background-color 100ms ease;
+}
+
+a.adm-reciente:hover {
+  background: var(--adm-superficie-2);
+}
+
+.adm-reciente__texto {
+  flex: 1;
+  display: grid;
+  min-width: 0;
+  line-height: 1.35;
+}
+
+.adm-reciente__texto strong {
+  font-weight: 500;
+  color: var(--adm-texto);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.adm-reciente__texto span {
+  font-size: 13px;
+  color: var(--adm-texto-3);
+}
+
+.adm-reciente__fecha {
+  width: 110px;
+  text-align: right;
+  font-size: 13px;
+  color: var(--adm-texto-3);
+}
+
+/* -------------------------------- Barras -------------------------------- */
+
+.adm-barras {
+  display: grid;
+  gap: 14px;
+}
+
+.adm-barras__texto {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  color: var(--adm-texto-2);
+}
+
+.adm-barras__texto strong {
+  font-weight: 600;
+  color: var(--adm-texto);
+}
+
+.adm-barras__pista {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--adm-hover);
+  overflow: hidden;
+}
+
+.adm-barras__pista span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, var(--adm-marca), #53a4d6);
+  animation: adm-barra 800ms var(--adm-ease) both;
+  transform-origin: left;
+}
+
+@keyframes adm-barra {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* ------------------------------ Pendientes ------------------------------ */
+
+.adm-pendientes {
+  display: grid;
+  gap: 8px;
+}
+
+.adm-pendiente {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--adm-radio);
+  border: 1px solid var(--adm-borde);
+  color: var(--adm-texto-2);
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+
+.adm-pendiente:hover {
+  border-color: var(--adm-borde-fuerte);
+  background: var(--adm-superficie-2);
+}
+
+.adm-pendiente svg {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+}
+
+.adm-pendiente span {
+  flex: 1;
+}
+
+.adm-pendiente--aviso > svg:first-child {
+  color: var(--adm-aviso);
+}
+
+.adm-pendiente--info > svg:first-child {
+  color: var(--adm-marca);
+}
+
+.adm-pendiente__flecha {
+  color: var(--adm-texto-4);
+  transition: transform 160ms var(--adm-ease);
+}
+
+.adm-pendiente:hover .adm-pendiente__flecha {
+  transform: translateX(3px);
+}
+
+.adm-pendientes__listo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--adm-exito);
+  font-weight: 500;
+}
+
+.adm-pendientes__listo svg {
+  width: 18px;
+  height: 18px;
+}
+
+@media (max-width: 1100px) {
+  .adm-metricas {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .adm-resumen__rejilla {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .adm-reciente__fecha,
+  .adm-reciente .adm-insignia {
+    display: none;
+  }
+}

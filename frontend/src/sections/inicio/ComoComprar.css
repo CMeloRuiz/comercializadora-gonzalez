@@ -1,0 +1,142 @@
+.como-comprar {
+  margin-top: var(--seccion);
+}
+
+.como-comprar__rejilla {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 88px);
+  align-items: center;
+}
+
+.como-comprar__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+.como-comprar__foto {
+  margin-top: 36px;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radio-lg);
+  overflow: hidden;
+  box-shadow: var(--sombra);
+}
+
+.como-comprar__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.como-comprar__pasos {
+  position: relative;
+  display: grid;
+  gap: 16px;
+  counter-reset: pasos;
+}
+
+/* Linea punteada que une los pasos */
+.como-comprar__pasos::before {
+  content: '';
+  position: absolute;
+  left: 51px;
+  top: 40px;
+  bottom: 40px;
+  border-left: 2px dashed var(--azul-200);
+}
+
+.paso {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 22px 24px 22px 20px;
+  background: var(--blanco);
+  border: 1px solid var(--gris-100);
+  border-radius: var(--radio-lg);
+  box-shadow: var(--sombra-xs);
+  transition:
+    transform var(--medio) var(--ease),
+    box-shadow var(--medio) var(--ease),
+    border-color var(--medio) ease;
+}
+
+.paso:hover {
+  transform: translateX(6px);
+  box-shadow: var(--sombra);
+  border-color: var(--azul-100);
+}
+
+.paso__icono {
+  position: relative;
+  flex-shrink: 0;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--azul-500);
+  color: var(--blanco);
+  box-shadow: 0 0 0 6px var(--azul-50);
+}
+
+.paso:nth-child(2) .paso__icono {
+  background: var(--whatsapp);
+  box-shadow: 0 0 0 6px var(--whatsapp-claro);
+}
+
+.paso__icono svg {
+  width: 28px;
+  height: 28px;
+}
+
+.paso__numero {
+  position: absolute;
+  top: 14px;
+  right: 18px;
+  font-size: var(--texto-2xl);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--gris-100);
+}
+
+.paso__titulo {
+  font-size: var(--texto-lg);
+  font-weight: 600;
+  color: var(--marino-900);
+}
+
+.paso__texto {
+  margin-top: 2px;
+  padding-right: 32px;
+  font-size: var(--texto-sm);
+  color: var(--texto-suave);
+}
+
+@media (max-width: 960px) {
+  .como-comprar__rejilla {
+    grid-template-columns: 1fr;
+  }
+
+  .como-comprar__foto {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .paso {
+    padding: 16px;
+    gap: 14px;
+  }
+
+  .paso__icono {
+    width: 52px;
+    height: 52px;
+  }
+
+  .como-comprar__pasos::before {
+    left: 42px;
+  }
+}

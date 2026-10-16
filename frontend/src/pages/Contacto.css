@@ -1,0 +1,236 @@
+.contacto {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: start;
+}
+
+/* ------------------------------ Canales ------------------------------ */
+
+.contacto__canales {
+  display: grid;
+  gap: 12px;
+}
+
+.canal {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 18px;
+  border-radius: var(--radio-lg);
+  border: 1px solid var(--gris-100);
+  background: var(--blanco);
+  transition:
+    transform var(--medio) var(--ease),
+    border-color var(--medio) ease,
+    box-shadow var(--medio) var(--ease);
+}
+
+.canal:hover {
+  transform: translateX(6px);
+  border-color: var(--azul-100);
+  box-shadow: var(--sombra-sm);
+}
+
+.canal__icono {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--azul-50);
+  color: var(--azul-500);
+}
+
+.canal--whatsapp .canal__icono {
+  background: var(--whatsapp);
+  color: var(--blanco);
+}
+
+.canal__icono svg {
+  width: 24px;
+  height: 24px;
+}
+
+.canal__texto {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  line-height: 1.35;
+}
+
+.canal__texto span {
+  font-size: var(--texto-sm);
+  color: var(--texto-tenue);
+}
+
+.canal__texto strong {
+  font-weight: 600;
+  color: var(--marino-900);
+  overflow-wrap: anywhere;
+}
+
+.contacto__horario {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  padding: 22px;
+  border-radius: var(--radio-lg);
+  background: var(--marino-800);
+  color: var(--blanco);
+}
+
+.contacto__horario svg {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  color: var(--azul-400);
+}
+
+.contacto__horario h2 {
+  font-size: var(--texto-base);
+  font-weight: 600;
+}
+
+.contacto__horario p {
+  margin-top: 4px;
+  white-space: pre-line;
+  color: rgba(255, 255, 255, 0.78);
+  font-size: var(--texto-sm);
+}
+
+.contacto__redes {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  color: var(--texto-tenue);
+  font-size: var(--texto-sm);
+}
+
+.contacto__redes a {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--gris-50);
+  color: var(--marino-900);
+}
+
+.contacto__redes a:hover {
+  background: var(--azul-500);
+  color: var(--blanco);
+}
+
+.contacto__redes svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ----------------------------- Formulario ----------------------------- */
+
+.contacto__formulario-caja {
+  padding: clamp(24px, 4vw, 44px);
+  border-radius: var(--radio-xl);
+  background: var(--blanco);
+  border: 1px solid var(--gris-100);
+  box-shadow: var(--sombra);
+}
+
+.contacto__titulo {
+  font-size: var(--texto-2xl);
+  color: var(--marino-900);
+}
+
+.contacto__subtitulo {
+  margin-top: 6px;
+  color: var(--texto-suave);
+}
+
+.formulario {
+  display: grid;
+  gap: 18px;
+  margin-top: 28px;
+}
+
+.formulario__fila {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.campo {
+  display: grid;
+  gap: 6px;
+}
+
+.campo__etiqueta {
+  font-size: var(--texto-sm);
+  font-weight: 600;
+  color: var(--marino-900);
+}
+
+.campo__etiqueta em {
+  font-style: normal;
+  font-weight: 400;
+  color: var(--texto-tenue);
+}
+
+.campo input,
+.campo select,
+.campo textarea {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: var(--radio);
+  border: 1.5px solid var(--gris-200);
+  background: var(--gris-25);
+  transition:
+    border-color var(--rapido) ease,
+    background-color var(--rapido) ease,
+    box-shadow var(--rapido) ease;
+}
+
+.campo textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+
+.campo input:focus,
+.campo select:focus,
+.campo textarea:focus {
+  outline: none;
+  background: var(--blanco);
+  border-color: var(--azul-500);
+  box-shadow: 0 0 0 4px var(--azul-100);
+}
+
+.campo [aria-invalid='true'] {
+  border-color: var(--peligro);
+  background: #fef2f2;
+}
+
+.campo__error {
+  font-size: var(--texto-xs);
+  font-weight: 500;
+  color: var(--peligro);
+  animation: buscador-entrada var(--medio) var(--ease);
+}
+
+.contacto__mapa .mapa {
+  min-height: 420px;
+  box-shadow: var(--sombra);
+}
+
+@media (max-width: 900px) {
+  .contacto {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .formulario__fila {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,102 @@
+/**
+ * ===== Sistema de diseno del panel =====
+ *
+ * Inspirado en paneles tipo Linear / Vercel / Shopify: superficies blancas
+ * sobre gris muy claro, bordes finos, tipografia Inter densa y un unico
+ * color de accion (el azul de la marca).
+ *
+ * Todas las variables cuelgan de .adm para no tocar el sitio publico.
+ * Convencion de clases: adm-bloque__elemento--modificador.
+ */
+
+.adm {
+  /* Marca */
+  --adm-marca: #2078b0;
+  --adm-marca-hover: #1a6699;
+  --adm-marca-suave: #eaf3fa;
+  --adm-marca-borde: #b9d6ea;
+  --adm-marino: #0b1a45;
+
+  /* Neutros */
+  --adm-fondo: #f6f7f9;
+  --adm-superficie: #ffffff;
+  --adm-superficie-2: #fafbfc;
+  --adm-hover: #f2f4f7;
+  --adm-borde: #e4e7ec;
+  --adm-borde-fuerte: #d0d5dd;
+  --adm-texto: #101828;
+  --adm-texto-2: #475467;
+  --adm-texto-3: #667085;
+  --adm-texto-4: #98a2b3;
+
+  /* Estados */
+  --adm-exito: #079455;
+  --adm-exito-suave: #ecfdf3;
+  --adm-exito-borde: #abefc6;
+  --adm-peligro: #d92d20;
+  --adm-peligro-hover: #b42318;
+  --adm-peligro-suave: #fef3f2;
+  --adm-peligro-borde: #fecdca;
+  --adm-aviso: #dc6803;
+  --adm-aviso-suave: #fffaeb;
+  --adm-aviso-borde: #fedf89;
+  --adm-violeta: #6938ef;
+  --adm-violeta-suave: #f4f3ff;
+
+  /* Forma */
+  --adm-radio-sm: 6px;
+  --adm-radio: 8px;
+  --adm-radio-lg: 12px;
+  --adm-radio-xl: 16px;
+
+  --adm-sombra-xs: 0 1px 2px rgba(16, 24, 40, 0.05);
+  --adm-sombra-sm: 0 1px 3px rgba(16, 24, 40, 0.08), 0 1px 2px rgba(16, 24, 40, 0.04);
+  --adm-sombra: 0 4px 8px -2px rgba(16, 24, 40, 0.08), 0 2px 4px -2px rgba(16, 24, 40, 0.04);
+  --adm-sombra-lg: 0 20px 24px -4px rgba(16, 24, 40, 0.1), 0 8px 8px -4px rgba(16, 24, 40, 0.04);
+  --adm-foco: 0 0 0 4px rgba(32, 120, 176, 0.18);
+
+  --adm-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --adm-sidebar: 256px;
+
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--adm-texto);
+  background: var(--adm-fondo);
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: 'cv11', 'ss01';
+}
+
+.adm h1,
+.adm h2,
+.adm h3,
+.adm h4 {
+  letter-spacing: -0.015em;
+  line-height: 1.25;
+  font-weight: 600;
+}
+
+.adm :focus-visible {
+  outline: none;
+  box-shadow: var(--adm-foco);
+  border-radius: var(--adm-radio-sm);
+}
+
+.adm ::selection {
+  background: var(--adm-marca-borde);
+}
+
+/* Numeros alineados en tablas y metricas */
+.adm-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.adm-pantalla-carga {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  color: var(--adm-texto-3);
+}

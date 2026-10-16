@@ -1,0 +1,145 @@
+.adm-ajustes__alerta {
+  margin-bottom: 20px;
+}
+
+.adm-ajustes {
+  display: grid;
+  gap: 20px;
+  max-width: 1040px;
+}
+
+.adm-ajustes__seccion {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+}
+
+.adm-ajustes__intro {
+  padding: 24px;
+  border-right: 1px solid var(--adm-borde);
+  background: var(--adm-superficie-2);
+  border-radius: var(--adm-radio-lg) 0 0 var(--adm-radio-lg);
+}
+
+.adm-ajustes__icono {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: var(--adm-radio);
+  border: 1px solid var(--adm-borde);
+  background: var(--adm-superficie);
+  color: var(--adm-marca);
+  box-shadow: var(--adm-sombra-xs);
+}
+
+.adm-ajustes__icono svg {
+  width: 18px;
+  height: 18px;
+}
+
+.adm-ajustes__intro h2 {
+  margin-top: 14px;
+  font-size: 15px;
+}
+
+.adm-ajustes__intro p {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--adm-texto-3);
+}
+
+.adm-ajustes__campos {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
+  align-content: start;
+}
+
+.adm-ajustes__dos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.adm-ajustes__fila {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 12px;
+  align-items: start;
+}
+
+.adm-ajustes__probar {
+  padding-top: 26px;
+}
+
+.adm-input-grupo--arriba {
+  align-items: flex-start;
+}
+
+.adm-input-grupo--arriba > svg {
+  top: 11px;
+}
+
+.adm-ajustes__horario {
+  padding-left: 34px;
+}
+
+/* Burbuja de chat para previsualizar el mensaje */
+.adm-burbuja {
+  position: relative;
+  justify-self: end;
+  max-width: 360px;
+  padding: 8px 12px 6px;
+  border-radius: 10px 0 10px 10px;
+  background: #d9fdd3;
+  color: #111b21;
+  box-shadow: 0 1px 1px rgba(11, 20, 26, 0.12);
+  display: grid;
+}
+
+.adm-burbuja::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: -8px;
+  border-left: 8px solid #d9fdd3;
+  border-bottom: 10px solid transparent;
+}
+
+.adm-burbuja__texto {
+  white-space: pre-line;
+}
+
+.adm-burbuja__hora {
+  justify-self: end;
+  font-size: 11px;
+  color: #667781;
+}
+
+@media (max-width: 860px) {
+  .adm-ajustes__seccion {
+    grid-template-columns: 1fr;
+  }
+
+  .adm-ajustes__intro {
+    border-right: 0;
+    border-bottom: 1px solid var(--adm-borde);
+    border-radius: var(--adm-radio-lg) var(--adm-radio-lg) 0 0;
+    padding: 18px 20px;
+  }
+
+  .adm-ajustes__campos {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 560px) {
+  .adm-ajustes__dos,
+  .adm-ajustes__fila {
+    grid-template-columns: 1fr;
+  }
+
+  .adm-ajustes__probar {
+    padding-top: 0;
+  }
+}
