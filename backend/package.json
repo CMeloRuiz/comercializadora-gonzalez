@@ -26,6 +26,9 @@
     "jsonwebtoken": "^9.0.3",
     "multer": "^2.4.0",
     "pg": "^8.23.0",
-    "sharp": "^0.35.4"
+    "sharp": "0.35.4"
+  },
+  "optionalDependencies": {
+    "@img/sharp-linux-x64": "0.35.4"
   }
 }

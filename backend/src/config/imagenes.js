@@ -2,7 +2,6 @@ import { mkdir, writeFile, unlink } from 'node:fs/promises'
 import { randomUUID } from 'node:crypto'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import sharp from 'sharp'
 import { v2 as cloudinary } from 'cloudinary'
 import { createClient } from '@supabase/supabase-js'
 import { config } from './entorno.js'
@@ -67,8 +66,44 @@ export class ErrorImagenes extends Error {
 	}
 }
 
+/*
+ * sharp se carga cuando hace falta, no al arrancar.
+ *
+ * Trae un binario nativo distinto por sistema operativo, y si falta (por
+ * ejemplo, cuando el package-lock.json se genero en otro sistema) importarlo
+ * revienta. Cargandolo aqui, ese problema solo afecta a la subida de
+ * imagenes: el catalogo, el panel y el resto de la API siguen en pie, y el
+ * log dice exactamente que pasa.
+ */
+let sharpCargado
+
+async function obtenerSharp() {
+	if (sharpCargado !== undefined) return sharpCargado
+
+	try {
+		sharpCargado = (await import('sharp')).default
+	} catch (error) {
+		sharpCargado = null
+		console.error('\n[imagenes] No se pudo cargar sharp:', error.message)
+		console.error('[imagenes] El sitio funciona, pero el panel no podra subir imagenes.')
+		console.error('[imagenes] En Linux suele faltar @img/sharp-linux-x64; reinstala con:')
+		console.error('[imagenes]   npm install --include=optional\n')
+	}
+
+	return sharpCargado
+}
+
 /** Redimensiona y convierte a WebP. Lanza 400 si el archivo no es una imagen valida */
 async function optimizar(contenido) {
+	const sharp = await obtenerSharp()
+
+	if (!sharp) {
+		throw new ErrorImagenes(
+			'El servidor no puede procesar imagenes en este momento. Avisa al administrador del sitio.',
+			503
+		)
+	}
+
 	try {
 		return await sharp(contenido, { failOn: 'error' })
 			.rotate()

@@ -128,6 +128,14 @@ Casi siempre es una de dos:
 - **CORS**: en los logs de la API aparecerá `[cors] Rechazado https://...`. Revisa que `ORIGENES_PERMITIDOS` tenga exactamente la URL del sitio, sin barra final.
 - **`VITE_API_URL` vacía o mal**: en la consola del navegador verás un error diciendo que falta. Corrígela y **vuelve a desplegar el sitio** (no basta con guardar la variable: se incrusta al compilar).
 
+### Si el despliegue de la API falla con `Could not load the "sharp" module`
+
+`sharp` usa un binario distinto por sistema operativo. Si el `package-lock.json` se generó en Windows, solo registra el binario de Windows y en Linux no se instala ninguno.
+
+Ya está resuelto: `backend/package.json` declara `@img/sharp-linux-x64` como dependencia opcional, así que el lockfile incluye ambos. Si vuelve a aparecer tras actualizar `sharp`, hay que **subir también la versión de ese paquete** para que coincidan exactamente.
+
+Desde ese arreglo, además, un fallo de `sharp` ya no tumba la API: el catálogo y el panel siguen funcionando y solo falla la subida de imágenes, con el motivo escrito en los logs.
+
 ### Sobre el plan gratuito de Render
 
 La API se duerme tras unos 15 minutos sin tráfico y la siguiente visita tarda ~30-60 s en despertarla. El sitio ya lo contempla: reintenta la petición varios segundos antes de mostrar un error, así que el visitante ve el esqueleto de carga, no un fallo. Si quieres evitarlo del todo, el plan de pago de Render mantiene el servicio siempre encendido.
