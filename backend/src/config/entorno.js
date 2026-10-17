@@ -18,7 +18,11 @@ import bcrypt from 'bcryptjs'
  * En produccion no hay .env (las variables las inyecta Render) y dotenv
  * simplemente no encuentra nada, que es lo esperado.
  */
-cargarEnv({ path: join(dirname(fileURLToPath(import.meta.url)), '..', '..', '.env') })
+cargarEnv({
+	path: join(dirname(fileURLToPath(import.meta.url)), '..', '..', '.env'),
+	/* Sin el banner publicitario que dotenv imprime en cada arranque */
+	quiet: true,
+})
 
 function requerida(nombre) {
 	const valor = process.env[nombre]

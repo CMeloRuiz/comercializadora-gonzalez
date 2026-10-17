@@ -92,6 +92,11 @@ services:
         value: public, max-age=604800
 
     envVars:
+      # Vite 8 necesita Node 22.12 o superior. Sin esto, el sitio se construye
+      # con la version por defecto del constructor, que puede ser mas antigua.
+      - key: NODE_VERSION
+        value: 22
+
       # URL de la API. Se toma del otro servicio para no copiarla a mano: Render
       # define RENDER_EXTERNAL_URL en cada Web Service con su URL publica.
       #
