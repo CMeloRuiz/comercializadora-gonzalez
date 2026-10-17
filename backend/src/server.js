@@ -1,3 +1,6 @@
+/* Primero de todo: deja constancia en el log de que el proceso arranco */
+import './config/arranque.js'
+
 import express from 'express'
 import cors from 'cors'
 import { config } from './config/entorno.js'

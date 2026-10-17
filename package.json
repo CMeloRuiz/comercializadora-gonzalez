@@ -16,7 +16,7 @@
     "dev:backend": "npm run dev --workspace backend",
     "dev:frontend": "npm run dev --workspace frontend",
     "build": "npm run build --workspace frontend",
-    "start": "npm run start --workspace backend",
+    "start": "node backend/src/server.js",
     "lint": "npm run lint --workspace frontend",
     "db:crear": "npm run db:crear --workspace backend",
     "db:sembrar": "npm run db:sembrar --workspace backend",

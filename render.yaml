@@ -21,7 +21,10 @@ services:
     plan: free
     region: oregon
     buildCommand: npm install
-    startCommand: npm start
+    # Node directo, sin npm de por medio: un "npm start" aqui encadena dos
+    # procesos de npm antes del servidor y cualquier espera suya (por ejemplo,
+    # un lock de cache) deja el servicio sin abrir el puerto y sin decir nada.
+    startCommand: node backend/src/server.js
 
     # Render consulta esta ruta para saber si el servicio esta vivo. Responde
     # sin tocar la base, asi que sigue sirviendo aunque Supabase falle.

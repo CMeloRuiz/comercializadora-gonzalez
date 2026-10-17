@@ -1,4 +1,6 @@
-import 'dotenv/config'
+import { dirname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import { config as cargarEnv } from 'dotenv'
 import bcrypt from 'bcryptjs'
 
 /**
@@ -7,6 +9,16 @@ import bcrypt from 'bcryptjs'
  * Nada de credenciales en el codigo: todo llega por variables de entorno,
  * documentadas en .env.example.
  */
+
+/*
+ * El .env se busca por la ruta de este archivo, no por el directorio desde el
+ * que se lanzo el proceso. Asi da igual arrancar con "npm start" desde la raiz
+ * o con "node src/server.js" desde backend/: siempre carga el mismo archivo.
+ *
+ * En produccion no hay .env (las variables las inyecta Render) y dotenv
+ * simplemente no encuentra nada, que es lo esperado.
+ */
+cargarEnv({ path: join(dirname(fileURLToPath(import.meta.url)), '..', '..', '.env') })
 
 function requerida(nombre) {
 	const valor = process.env[nombre]

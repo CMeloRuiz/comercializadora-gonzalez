@@ -67,7 +67,7 @@ No debe aparecer `backend/.env`. Si aparece, no hagas commit y avísame.
 | Root Directory | *(vacío: la raíz)* |
 | Runtime | Node |
 | Build Command | `npm install` |
-| Start Command | `npm start` |
+| Start Command | `node backend/src/server.js` |
 | Health Check Path | `/api/salud` |
 | Instance Type | Free |
 
@@ -127,6 +127,15 @@ Casi siempre es una de dos:
 
 - **CORS**: en los logs de la API aparecerá `[cors] Rechazado https://...`. Revisa que `ORIGENES_PERMITIDOS` tenga exactamente la URL del sitio, sin barra final.
 - **`VITE_API_URL` vacía o mal**: en la consola del navegador verás un error diciendo que falta. Corrígela y **vuelve a desplegar el sitio** (no basta con guardar la variable: se incrusta al compilar).
+
+### Si el despliegue se queda en `Port scan timeout reached, no open ports detected`
+
+Significa que el proceso arrancó pero nunca abrió el puerto. Mira si en los logs aparece la línea `[arranque] Node vXX · PORT=...`:
+
+- **No aparece**: el servidor ni siquiera empezó a ejecutarse; el problema está antes, en la cadena de arranque. Por eso el *start command* es `node backend/src/server.js` y no `npm start`: encadenar dos procesos de npm añade puntos de fallo silenciosos (por ejemplo, npm esperando un lock de caché) que dejan el servicio colgado sin un solo mensaje.
+- **Sí aparece pero no llega el "API ... escuchando"**: se quedó atascado cargando configuración o dependencias; el error estará en las líneas siguientes.
+
+Mientras un despliegue falla, Render **mantiene en línea la versión anterior**. Conviene comprobarlo antes de sacar conclusiones: que el sitio responda no significa que el último cambio esté publicado.
 
 ### Si el despliegue de la API falla con `Could not load the "sharp" module`
 
