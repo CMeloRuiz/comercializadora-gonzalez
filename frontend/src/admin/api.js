@@ -47,7 +47,7 @@ export class ErrorApi extends Error {
   }
 }
 
-async function llamar(ruta, { metodo = 'GET', cuerpo, autenticado = true, signal } = {}) {
+async function llamar(ruta, { metodo = 'GET', cuerpo, autenticado = true, signal, idempotente, alReintentar } = {}) {
   const cabeceras = {}
   const esFormulario = cuerpo instanceof FormData
 
@@ -65,14 +65,18 @@ async function llamar(ruta, { metodo = 'GET', cuerpo, autenticado = true, signal
      * despertando). Si el servidor contesta, aunque sea un error, no se
      * repite: la peticion ya llego y podria duplicar una escritura.
      */
-    respuesta = await pedirConReintentos(`${API}${ruta}`, {
-      method: metodo,
-      headers: cabeceras,
-      body: esFormulario ? cuerpo : cuerpo ? JSON.stringify(cuerpo) : undefined,
-      signal,
-      /* El panel siempre necesita el dato recien guardado, nunca una copia en cache */
-      cache: 'no-store',
-    })
+    respuesta = await pedirConReintentos(
+      `${API}${ruta}`,
+      {
+        method: metodo,
+        headers: cabeceras,
+        body: esFormulario ? cuerpo : cuerpo ? JSON.stringify(cuerpo) : undefined,
+        signal,
+        /* El panel siempre necesita el dato recien guardado, nunca una copia en cache */
+        cache: 'no-store',
+      },
+      { idempotente, alReintentar }
+    )
   } catch (error) {
     if (error.name === 'AbortError') throw error
     throw new ErrorApi('No se pudo conectar con el servidor. Revisa tu conexión o que la API esté encendida.', 0)
@@ -109,8 +113,28 @@ const consulta = (parametros) => {
 }
 
 export const api = {
-  login: (usuario, clave) => llamar('/api/auth/login', { metodo: 'POST', cuerpo: { usuario, clave }, autenticado: false }),
+  /*
+   * El login no crea ni modifica nada: repetirlo es inofensivo. Por eso es la
+   * unica escritura que insiste tambien cuando el intermediario contesta 502,
+   * que es lo que devuelve Render mientras la API duerme. Antes ese primer
+   * intento moria con "No se pudo conectar" y habia que reintentar a mano.
+   */
+  login: (usuario, clave, { alReintentar } = {}) =>
+    llamar('/api/auth/login', {
+      metodo: 'POST',
+      cuerpo: { usuario, clave },
+      autenticado: false,
+      idempotente: true,
+      alReintentar,
+    }),
   verificarSesion: () => llamar('/api/auth/verificar'),
+
+  /*
+   * Toque sin efectos para ir despertando la API en cuanto se abre el login,
+   * mientras el usuario escribe sus datos. Si falla, da igual: solo adelanta
+   * trabajo.
+   */
+  despertar: (signal) => llamar('/api/salud', { autenticado: false, signal }),
 
   resumen: (opciones) => llamar('/api/admin/resumen', opciones),
 

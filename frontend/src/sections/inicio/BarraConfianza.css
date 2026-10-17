@@ -8,7 +8,8 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   background: var(--blanco);
-  border: 1px solid var(--gris-100);
+  /* Borde visible: la mitad de abajo de la tarjeta cae sobre fondo blanco */
+  border: 1px solid var(--gris-200);
   border-radius: var(--radio-lg);
   box-shadow: var(--sombra);
   padding: 8px;

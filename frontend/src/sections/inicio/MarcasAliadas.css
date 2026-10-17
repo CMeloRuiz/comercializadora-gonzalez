@@ -5,11 +5,12 @@
 
 .marcas__titulo {
   text-align: center;
-  font-size: var(--texto-base);
-  font-weight: 500;
-  letter-spacing: 0;
-  color: var(--texto-tenue);
-  margin-bottom: 32px;
+  /* Un escalon por debajo de los titulos de seccion: se lee, pero no compite */
+  font-size: var(--texto-xl);
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  color: var(--marino-900);
+  margin-bottom: 36px;
 }
 
 .marcas__carril {

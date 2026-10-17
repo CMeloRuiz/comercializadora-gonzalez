@@ -49,6 +49,14 @@
   --texto-tenue: var(--gris-500);
   --fondo: var(--blanco);
   --fondo-alterno: var(--gris-50);
+
+  /*
+   * Fondos de seccion. El Home alterna blanco con estos dos tonos para que no
+   * se lea como una sola plancha blanca y para que las tarjetas blancas
+   * (productos, datos de contacto) tengan sobre que recortarse.
+   */
+  --fondo-suave: linear-gradient(180deg, var(--gris-25), var(--gris-50));
+  --fondo-azulado: linear-gradient(180deg, #f7fafd, var(--azul-50));
   --borde: var(--gris-200);
   --exito: #16a34a;
   --peligro: #dc2626;

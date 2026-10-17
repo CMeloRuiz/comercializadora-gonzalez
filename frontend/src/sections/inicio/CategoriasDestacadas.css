@@ -1,14 +1,17 @@
 .categorias {
   position: relative;
-  padding: var(--seccion) 0 0;
+  padding: var(--seccion) 0;
   margin-top: var(--seccion);
 }
 
-/* Banda oscura detras de la mitad superior: las tarjetas "salen" de ella */
+/*
+ * Fondo oscuro de toda la seccion. Antes cubria solo un porcentaje del alto y
+ * la ultima fila de tarjetas se quedaba fuera; con "inset: 0" el fondo crece
+ * con el contenido, haya las filas que haya.
+ */
 .categorias__banda {
   position: absolute;
-  inset: 0 0 auto;
-  height: 62%;
+  inset: 0;
   background:
     linear-gradient(180deg, rgba(7, 17, 46, 0.86), rgba(11, 26, 69, 0.94)),
     url('../../assets/images/set-llaves-1920.webp') center / cover no-repeat;
@@ -136,19 +139,11 @@
   .categorias__rejilla {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
-
-  .categorias__banda {
-    height: 45%;
-  }
 }
 
 @media (max-width: 640px) {
   .categorias__rejilla {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
-  .categorias__banda {
-    height: 36%;
   }
 
   .categoria-tarjeta {

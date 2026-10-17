@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom'
 import { AlertCircle, ArrowLeft, Eye, EyeOff, Lock, User } from 'lucide-react'
 import { api, sesion } from '../api'
@@ -18,7 +18,20 @@ function Login() {
   const [clave, setClave] = useState('')
   const [verClave, setVerClave] = useState(false)
   const [enviando, setEnviando] = useState(false)
+  const [despertando, setDespertando] = useState(false)
   const [error, setError] = useState('')
+
+  /*
+   * En cuanto se abre la pantalla se le da un toque a la API. En el plan
+   * gratuito de Render el servicio se duerme y tarda hasta un minuto en
+   * levantarse; haciendolo ahora, mientras se escriben usuario y clave, suele
+   * estar lista antes de pulsar "Iniciar sesion".
+   */
+  useEffect(() => {
+    const control = new AbortController()
+    api.despertar(control.signal).catch(() => {})
+    return () => control.abort()
+  }, [])
 
   /* Con sesion abierta no tiene sentido ver el login */
   if (sesion.leer() && !state?.motivo) return <Navigate to="/admin/resumen" replace />
@@ -30,15 +43,20 @@ function Login() {
       return
     }
     setEnviando(true)
+    setDespertando(false)
     setError('')
     try {
-      const respuesta = await api.login(usuario.trim(), clave)
+      const respuesta = await api.login(usuario.trim(), clave, {
+        /* Hubo que insistir: se avisa en vez de dejar el boton girando sin mas */
+        alReintentar: () => setDespertando(true),
+      })
       sesion.guardar(respuesta.token, respuesta.usuario)
       const destino = state?.desde && state.desde !== '/admin' ? state.desde : '/admin/resumen'
       navegar(destino, { replace: true })
     } catch (e) {
       setError(e.message)
       setEnviando(false)
+      setDespertando(false)
     }
   }
 
@@ -107,6 +125,12 @@ function Login() {
             {enviando && <span className="adm-spinner" aria-hidden="true" />}
             {enviando ? 'Entrando...' : 'Iniciar sesión'}
           </button>
+
+          {despertando && (
+            <p className="adm-login__espera" role="status">
+              El servidor estaba en reposo y se está encendiendo. Seguimos intentando, no cierres esta página.
+            </p>
+          )}
         </form>
 
         <p className="adm-login__pie">© {new Date().getFullYear()} Comercializadora Gonzalez S.A.S.</p>

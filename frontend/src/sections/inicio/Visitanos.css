@@ -1,3 +1,8 @@
+/* Cierra el Home con un azul muy claro, antes del pie oscuro */
+.visitanos {
+  background: var(--fondo-azulado);
+}
+
 .visitanos__rejilla {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
@@ -35,6 +40,7 @@
   white-space: pre-line;
 }
 
+/* Blancos y no azul-50: sobre el fondo azulado aquel tono desaparecia */
 .visitanos__icono {
   flex-shrink: 0;
   width: 46px;
@@ -42,7 +48,9 @@
   display: grid;
   place-items: center;
   border-radius: 14px;
-  background: var(--azul-50);
+  background: var(--blanco);
+  border: 1px solid var(--azul-100);
+  box-shadow: var(--sombra-xs);
   color: var(--azul-500);
 }
 

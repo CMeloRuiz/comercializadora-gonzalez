@@ -33,6 +33,15 @@ const ESPERAS_LECTURA = [400, 1200, 2500, 4000, 7000]
  */
 const ESPERAS_ESCRITURA = [400, 1200, 2500]
 
+/*
+ * Para una escritura que se puede repetir sin consecuencias (el login: no crea
+ * ni cambia nada, solo comprueba una clave). Suma casi un minuto, que es lo
+ * que puede tardar en despertar un servicio dormido del plan gratuito de
+ * Render. Sin esto, el primer intento de entrar al panel caia siempre y solo
+ * funcionaba el segundo, cuando la API ya estaba en pie.
+ */
+const ESPERAS_DESPERTAR = [600, 1500, 3000, 5000, 8000, 12000, 15000, 15000]
+
 const ESTADOS_REINTENTABLES = [502, 503, 504]
 
 const esLectura = (metodo = 'GET') => ['GET', 'HEAD'].includes(metodo.toUpperCase())
@@ -51,12 +60,24 @@ function cancelado(opciones) {
  *
  * @param {string} url
  * @param {RequestInit} opciones
+ * @param {{ idempotente?: boolean, alReintentar?: (intento: number) => void }} [extra]
+ *   idempotente marca una escritura que se puede repetir sin consecuencias, y
+ *   alReintentar avisa a la pantalla en cada reintento para que pueda explicar
+ *   la espera en vez de parecer colgada.
  * @returns {Promise<Response>}
  */
-export async function pedirConReintentos(url, opciones = {}) {
+export async function pedirConReintentos(url, opciones = {}, { idempotente = false, alReintentar } = {}) {
 	const lectura = esLectura(opciones.method)
-	const esperas = lectura ? ESPERAS_LECTURA : ESPERAS_ESCRITURA
+	/* Repetir ante un 502 solo es seguro si la peticion no cambia nada */
+	const repetirRespuesta = lectura || idempotente
+	const esperas = idempotente ? ESPERAS_DESPERTAR : lectura ? ESPERAS_LECTURA : ESPERAS_ESCRITURA
 	let ultimoError
+
+	const esperar = async (intento) => {
+		alReintentar?.(intento + 1)
+		await dormir(esperas[intento])
+		cancelado(opciones)
+	}
 
 	for (let intento = 0; intento <= esperas.length; intento++) {
 		const ultimoIntento = intento === esperas.length
@@ -65,9 +86,8 @@ export async function pedirConReintentos(url, opciones = {}) {
 			const respuesta = await fetch(url, opciones)
 
 			/* El intermediario dice que el destino no responde: vale la pena insistir */
-			if (lectura && ESTADOS_REINTENTABLES.includes(respuesta.status) && !ultimoIntento) {
-				await dormir(esperas[intento])
-				cancelado(opciones)
+			if (repetirRespuesta && ESTADOS_REINTENTABLES.includes(respuesta.status) && !ultimoIntento) {
+				await esperar(intento)
 				continue
 			}
 
@@ -79,8 +99,7 @@ export async function pedirConReintentos(url, opciones = {}) {
 			if (ultimoIntento) break
 
 			cancelado(opciones)
-			await dormir(esperas[intento])
-			cancelado(opciones)
+			await esperar(intento)
 		}
 	}
 

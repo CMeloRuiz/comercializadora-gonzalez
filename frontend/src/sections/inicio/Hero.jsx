@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight, MessageCircleMore, ShieldCheck, Sparkles } from 'lucide-react'
+import { ArrowRight, ShieldCheck } from 'lucide-react'
 import { catalogo } from '../../lib/api'
 import { portada } from '../../lib/imagenes'
 import { useConsulta, useNegocio } from '../../hooks'
@@ -12,18 +12,30 @@ import './Hero.css'
 /* La palabra que rota ya estaba en el sitio anterior: se conserva como sello de la marca */
 const PALABRAS = ['hogar', 'negocio', 'taller', 'obra', 'oficina']
 
+/*
+ * Se guardan la palabra visible y la anterior: asi las dos conviven un instante
+ * y el cambio es un fundido cruzado en el mismo sitio, no un salto.
+ */
 function PalabraRotativa() {
-  const [indice, setIndice] = useState(0)
+  const [{ actual, previa }, setPalabra] = useState({ actual: 0, previa: null })
 
   useEffect(() => {
-    const reloj = setInterval(() => setIndice((i) => (i + 1) % PALABRAS.length), 2600)
+    const reloj = setInterval(
+      () => setPalabra(({ actual: i }) => ({ actual: (i + 1) % PALABRAS.length, previa: i })),
+      2600
+    )
     return () => clearInterval(reloj)
   }, [])
 
   return (
     <span className="hero__rotativa" aria-live="polite">
-      <span key={PALABRAS[indice]} className="hero__palabra">
-        {PALABRAS[indice]}
+      {previa !== null && (
+        <span key={`sale-${previa}`} className="hero__palabra hero__palabra--sale" aria-hidden="true">
+          {PALABRAS[previa]}
+        </span>
+      )}
+      <span key={`entra-${actual}`} className="hero__palabra hero__palabra--entra">
+        {PALABRAS[actual]}
       </span>
     </span>
   )
@@ -35,24 +47,16 @@ function Hero() {
   const { datos: categorias } = useConsulta((opciones) => catalogo.categorias(opciones), [])
 
   const destacados = datos?.productos ?? []
-  const principal = destacados[0]
   const totalProductos = categorias?.reduce((suma, c) => suma + c.totalProductos, 0)
 
   return (
     <section className="hero">
       <div className="hero__decoracion" aria-hidden="true">
         <span className="hero__circulo" />
-        <span className="hero__punto hero__punto--1" />
-        <span className="hero__punto hero__punto--2" />
-        <span className="hero__punto hero__punto--3" />
       </div>
 
       <div className="contenedor hero__rejilla">
         <div className="hero__texto">
-          <p className="hero__insignia">
-            <Sparkles aria-hidden="true" /> Eléctricos y ferretería
-          </p>
-
           <h1 className="hero__titulo">
             Soluciones duraderas para tu <PalabraRotativa />
           </h1>
@@ -99,31 +103,6 @@ function Hero() {
               fetchPriority="high"
             />
           </div>
-
-          <div className="hero__flotante hero__flotante--respuesta">
-            <span className="hero__flotante-icono">
-              <MessageCircleMore aria-hidden="true" />
-            </span>
-            <p>
-              <strong>Cotiza por WhatsApp</strong>
-              <span>Respuesta rápida</span>
-            </p>
-          </div>
-
-          {principal && (
-            <Link to={`/productos/${principal.slug}`} className="hero__flotante hero__flotante--producto">
-              <span className="hero__producto-imagen">
-                <img src={portada(principal, 240)} alt="" />
-              </span>
-              <span className="hero__producto-info">
-                <span className="hero__producto-categoria">{principal.categoria?.nombre}</span>
-                <strong>{principal.nombre}</strong>
-                <span className="hero__producto-enlace">
-                  Ver producto <ArrowRight aria-hidden="true" />
-                </span>
-              </span>
-            </Link>
-          )}
 
           <div className="hero__flotante hero__flotante--garantia">
             <ShieldCheck aria-hidden="true" /> Calidad garantizada

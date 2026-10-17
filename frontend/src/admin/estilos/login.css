@@ -196,3 +196,12 @@
     display: none;
   }
 }
+
+/* Aviso mientras se insiste porque la API todavia esta despertando */
+.adm-login__espera {
+  margin-top: 12px;
+  font-size: 13px;
+  line-height: 1.5;
+  text-align: center;
+  color: var(--adm-texto-3);
+}

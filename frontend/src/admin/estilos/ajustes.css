@@ -77,11 +77,18 @@
 }
 
 .adm-input-grupo--arriba > svg {
-  top: 11px;
+  top: 12px;
 }
 
-.adm-ajustes__horario {
-  padding-left: 34px;
+/*
+ * El CSS de la pagina se inyecta antes que el de los componentes, asi que el
+ * "padding" corto de .adm-textarea pisaba este sangrado y el texto arrancaba
+ * debajo del reloj. Con el selector del grupo gana el sangrado, que es lo
+ * especifico de este campo.
+ */
+.adm-input-grupo > .adm-ajustes__horario {
+  padding-left: 38px;
+  padding-top: 9px;
 }
 
 /* Burbuja de chat para previsualizar el mensaje */
