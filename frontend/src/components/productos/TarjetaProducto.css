@@ -161,6 +161,8 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  /* Cede el ancho antes que empujar los botones fuera de la tarjeta */
+  min-width: 0;
   font-size: var(--texto-sm);
   color: var(--texto-tenue);
 }
@@ -230,6 +232,23 @@
   }
   to {
     background-position: -200% 0;
+  }
+}
+
+/*
+ * En dos columnas de telefono la tarjeta baja de 200 px: el texto y los dos
+ * botones redondos ya no caben en la misma linea y el de WhatsApp quedaba
+ * cortado contra el borde. Se reparten en dos filas.
+ */
+@media (max-width: 480px) {
+  .tarjeta-producto__pie {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .tarjeta-producto__botones {
+    justify-content: flex-end;
   }
 }
 

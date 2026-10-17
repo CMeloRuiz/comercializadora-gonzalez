@@ -63,6 +63,11 @@ a.barra-superior__item:hover {
   height: var(--alto-header);
 }
 
+/* Nunca se comprime: antes cedia su ancho a los botones y se deformaba */
+.header__logo {
+  flex-shrink: 0;
+}
+
 .header__logo img {
   height: 60px;
   width: auto;
@@ -257,12 +262,41 @@ a.barra-superior__item:hover {
   }
 }
 
-@media (max-width: 420px) {
+/*
+ * En telefono la fila es logo + carrito + "Cotizar" + menu. Sumados pasan del
+ * ancho de pantalla, y como el logo era lo unico que podia encoger, acababa
+ * aplastado. Se recortan primero los espacios y, en las pantallas mas
+ * estrechas, el boton de WhatsApp se queda solo con su icono.
+ */
+@media (max-width: 480px) {
+  .header__contenido {
+    gap: 10px;
+  }
+
+  .header__acciones {
+    gap: 6px;
+  }
+
   .header__logo img {
-    height: 46px;
+    height: 44px;
   }
 
   .header__cta {
-    padding: 0 12px;
+    padding: 0 10px;
+  }
+}
+
+/* Por debajo de esto ya no caben las dos cosas: manda el logo */
+@media (max-width: 370px) {
+  .header__logo img {
+    height: 40px;
+  }
+
+  .header__cta-texto {
+    display: none;
+  }
+
+  .header__cta {
+    padding: 0 9px;
   }
 }

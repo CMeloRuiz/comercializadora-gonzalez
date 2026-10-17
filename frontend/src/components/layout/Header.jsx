@@ -85,7 +85,7 @@ function Header() {
             <BuscadorGlobal className="header__buscador" />
             <BotonCarrito className="header__carrito" />
             <a href={negocio.enlaceWhatsappGeneral} target="_blank" rel="noreferrer" className="btn btn--whatsapp btn--pequeno header__cta">
-              <IconoWhatsApp /> Cotizar
+              <IconoWhatsApp /> <span className="header__cta-texto">Cotizar</span>
             </a>
             <button
               type="button"

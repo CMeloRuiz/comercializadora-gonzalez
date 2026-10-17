@@ -140,7 +140,7 @@
 
 @media (max-width: 600px) {
   .banners__rejilla {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .banner {

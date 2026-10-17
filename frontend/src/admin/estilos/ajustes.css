@@ -125,7 +125,7 @@
 
 @media (max-width: 860px) {
   .adm-ajustes__seccion {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .adm-ajustes__intro {
@@ -143,7 +143,7 @@
 @media (max-width: 560px) {
   .adm-ajustes__dos,
   .adm-ajustes__fila {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .adm-ajustes__probar {

@@ -117,7 +117,7 @@
 
 @media (max-width: 960px) {
   .como-comprar__rejilla {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .como-comprar__foto {

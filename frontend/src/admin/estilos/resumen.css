@@ -246,7 +246,7 @@ a.adm-reciente:hover {
   }
 
   .adm-resumen__rejilla {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

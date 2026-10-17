@@ -474,9 +474,14 @@
 /* ------------------------------ Responsive ------------------------------ */
 
 @media (max-width: 900px) {
+  /*
+   * minmax(0, 1fr) y no 1fr: una columna "1fr" no baja del ancho minimo de su
+   * contenido, asi que cualquier pieza ancha de dentro estiraba la pagina
+   * entera y la dejaba cortada en el telefono.
+   */
   .detalle,
   .detalle__contenido {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .detalle__galeria {
@@ -544,9 +549,30 @@
   }
 }
 
+/*
+ * "Cotizar por WhatsApp" no parte en dos lineas, asi que en pantallas
+ * estrechas los dos botones de al lado (llamar y compartir) se aplastaban
+ * hasta desaparecer y se salian de la pantalla. Pasan a su propia fila.
+ */
+@media (max-width: 480px) {
+  .detalle__cta {
+    flex-wrap: wrap;
+  }
+
+  .detalle__cotizar {
+    flex-basis: 100%;
+  }
+
+  .detalle__llamar,
+  .detalle__compartir {
+    flex: 1;
+    width: auto;
+  }
+}
+
 @media (max-width: 480px) {
   .detalle__garantias {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .detalle__garantias li {

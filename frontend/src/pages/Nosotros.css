@@ -188,7 +188,7 @@
 
 @media (max-width: 960px) {
   .nosotros__intro {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .nosotros__valores {
@@ -199,6 +199,6 @@
 @media (max-width: 640px) {
   .nosotros__proposito-rejilla,
   .nosotros__valores {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
