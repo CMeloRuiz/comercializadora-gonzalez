@@ -25,6 +25,14 @@
   }
 }
 
+/* En pantallas asi de estrechas dos tarjetas quedan amontonadas: va una sola */
+@media (max-width: 500px) {
+  .grilla-productos--4,
+  .grilla-productos--3 {
+    --columnas: 1;
+  }
+}
+
 /* El envoltorio de la animacion debe estirarse para que las tarjetas de una fila midan igual */
 .grilla-productos > .reveal {
   height: 100%;
