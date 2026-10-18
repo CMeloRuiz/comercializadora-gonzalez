@@ -145,6 +145,14 @@ Ya está resuelto: `backend/package.json` declara `@img/sharp-linux-x64` como de
 
 Desde ese arreglo, además, un fallo de `sharp` ya no tumba la API: el catálogo y el panel siguen funcionando y solo falla la subida de imágenes, con el motivo escrito en los logs.
 
+### Si el despliegue del sitio falla con `Cannot find module '@rolldown/binding-linux-x64-gnu'`
+
+Lo mismo que le pasaba a `sharp`, ahora en el constructor del sitio: Vite 8 compila con **rolldown**, que trae un binario nativo distinto por sistema operativo. Un `package-lock.json` generado en Windows solo registra el binario de Windows, y en Linux no se instala ninguno.
+
+Ya está resuelto: `frontend/package.json` declara `@rolldown/binding-linux-x64-gnu` como dependencia opcional, así que el lockfile incluye los dos.
+
+> La versión del binario tiene que coincidir **exactamente** con la de rolldown, que está fijada en `overrides` del `package.json` de la raíz. Si algún día se sube una, hay que subir la otra.
+
 ### Sobre el plan gratuito de Render
 
 La API se duerme tras unos 15 minutos sin tráfico y la siguiente visita tarda ~30-60 s en despertarla. El sitio ya lo contempla: reintenta la petición varios segundos antes de mostrar un error, así que el visitante ve el esqueleto de carga, no un fallo. Si quieres evitarlo del todo, el plan de pago de Render mantiene el servicio siempre encendido.

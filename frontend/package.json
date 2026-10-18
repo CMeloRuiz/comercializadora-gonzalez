@@ -12,6 +12,10 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+  "comentario-rolldown": "Vite 8 compila con rolldown, que trae un binario nativo distinto por sistema. Al generar el package-lock.json en Windows solo queda registrado el de Windows y en Linux no se instala ninguno, asi que el build de Render moria con 'Cannot find module @rolldown/binding-linux-x64-gnu'. Declarandolo aqui queda en el lockfile y se instala alla. La version tiene que coincidir exactamente con la de rolldown (ver 'overrides' en la raiz).",
+  "optionalDependencies": {
+    "@rolldown/binding-linux-x64-gnu": "1.2.8"
+  },
   "dependencies": {
     "lucide-react": "^1.46.0",
     "react": "^19.3.0",
