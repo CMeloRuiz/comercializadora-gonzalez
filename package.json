@@ -21,6 +21,7 @@
     "db:crear": "npm run db:crear --workspace backend",
     "db:sembrar": "npm run db:sembrar --workspace backend",
     "hash": "npm run hash --workspace backend --",
+    "hash:mostrar": "npm run hash:mostrar --workspace backend",
     "setup": "npm install && npm run db:crear && npm run db:sembrar",
     "db:ping": "npm run db:ping --workspace backend"
   },

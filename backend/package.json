@@ -12,6 +12,7 @@
     "dev": "node --watch src/server.js",
     "start": "node src/server.js",
     "hash": "node src/scripts/generarHash.js",
+    "hash:mostrar": "node src/scripts/generarHash.js --mostrar",
     "db:crear": "node src/scripts/crearEsquema.js",
     "db:sembrar": "node src/scripts/sembrarCatalogo.js",
     "db:ping": "node src/scripts/mantenerActiva.js"

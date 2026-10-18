@@ -40,7 +40,7 @@ No debe aparecer `backend/.env`. Si aparece, no hagas commit y avísame.
 | `DATABASE_URL` | Supabase → Project Settings → Database → Connection string → **Session pooler**, con la clave de la base |
 | `JWT_SECRETO` | El mismo de tu `.env` (o genera otro: `node -e "console.log(require('crypto').randomBytes(48).toString('hex'))"`) |
 | `ADMIN_USUARIO` | `admin` |
-| `ADMIN_CLAVE_HASH` | El hash de tu `.env` (el que empieza por `$2b$12$`) |
+| `ADMIN_CLAVE_HASH` | El hash de tu `.env` (el que empieza por `$2b$12$`), o uno nuevo con `npm run hash:mostrar` |
 | `SUPABASE_URL` | `https://ukkdqwpiuytizhseupkt.supabase.co` |
 | `SUPABASE_SERVICE_KEY` | La clave secreta (`sb_secret_…`) |
 | `ORIGENES_PERMITIDOS` | Déjalo vacío por ahora; se completa en el paso 5 |
@@ -110,6 +110,28 @@ Redirects/Rewrites (para que React Router funcione al recargar una ruta):
 | `/*` | `/index.html` | Rewrite |
 
 > El archivo `frontend/public/_redirects` ya lo cubre, pero dejarlo también en el panel no estorba.
+
+---
+
+## Cambiar la clave del panel
+
+En **local**, escribe la clave nueva en `backend/.env` (guardada como hash, nunca en claro):
+
+```bash
+npm run hash
+```
+
+En **Render** las variables no salen de ningún archivo, así que hay que pegar el hash a mano. Este comando lo imprime sin tocar el `.env`:
+
+```bash
+npm run hash:mostrar
+```
+
+Copia el valor entre comillas a `comercializadora-gonzalez-api` → *Environment* → `ADMIN_CLAVE_HASH` → *Save changes*. La API se reinicia sola.
+
+> Escribe la misma clave en los dos sitios para no confundirte. El hash saldrá distinto cada vez aunque la clave sea la misma: bcrypt mezcla un valor aleatorio. Las dos son válidas.
+
+> `hash:mostrar` es un script aparte a propósito. Lo natural sería `npm run hash -- --mostrar`, pero esa forma depende de la consola: PowerShell se come el `--` suelto, la bandera nunca llega y se acaba ejecutando el modo normal, que reescribe el `.env`.
 
 ---
 
