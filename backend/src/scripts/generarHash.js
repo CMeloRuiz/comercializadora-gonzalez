@@ -8,9 +8,15 @@ import bcrypt from 'bcryptjs'
  * Cambia la clave del administrador del panel.
  *
  *   npm run hash                 pide la clave por teclado y la guarda en .env
- *   npm run hash -- --mostrar    solo imprime el hash, no toca el .env
+ *   npm run hash -- --mostrar    solo imprime el hash, no toca el .env: es lo
+ *                                que hay que pegar en Render, donde las
+ *                                variables no salen de ningun archivo
  *   npm run hash -- miClave      toma la clave del argumento (queda en el
  *                                historial de la terminal: evitalo)
+ *
+ * Desde la raiz funciona igual gracias al "--" del final de su script: sin el,
+ * npm se quedaba con las banderas en vez de pasarlas aqui y --mostrar no
+ * llegaba nunca.
  *
  * En el .env nunca se guarda la clave, solo su hash bcrypt: un resumen del que
  * no se puede volver atras. Si alguien lee el archivo, no puede entrar al panel.
