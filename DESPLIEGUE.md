@@ -145,13 +145,27 @@ Ya está resuelto: `backend/package.json` declara `@img/sharp-linux-x64` como de
 
 Desde ese arreglo, además, un fallo de `sharp` ya no tumba la API: el catálogo y el panel siguen funcionando y solo falla la subida de imágenes, con el motivo escrito en los logs.
 
-### Si el despliegue del sitio falla con `Cannot find module '@rolldown/binding-linux-x64-gnu'`
+### Si un despliegue falla con `Cannot find module '...linux-x64-gnu'`
 
-Lo mismo que le pasaba a `sharp`, ahora en el constructor del sitio: Vite 8 compila con **rolldown**, que trae un binario nativo distinto por sistema operativo. Un `package-lock.json` generado en Windows solo registra el binario de Windows, y en Linux no se instala ninguno.
+El proyecto usa tres paquetes con **binario nativo distinto por sistema operativo**:
 
-Ya está resuelto: `frontend/package.json` declara `@rolldown/binding-linux-x64-gnu` como dependencia opcional, así que el lockfile incluye los dos.
+| Paquete | Para qué | Binario de Linux |
+| --- | --- | --- |
+| `sharp` | optimizar las imágenes que se suben | `@img/sharp-linux-x64` |
+| `rolldown` | el compilador de Vite 8 | `@rolldown/binding-linux-x64-gnu` |
+| `lightningcss` | el minificador de CSS de Vite 8 | `lightningcss-linux-x64-gnu` |
 
-> La versión del binario tiene que coincidir **exactamente** con la de rolldown, que está fijada en `overrides` del `package.json` de la raíz. Si algún día se sube una, hay que subir la otra.
+Un `package-lock.json` generado en Windows solo registra los binarios de Windows, así que en Linux no se instala ninguno y el proceso muere al cargarlo. Ya está resuelto: los tres binarios de Linux están declarados como dependencias opcionales (`backend/package.json` el de sharp, `frontend/package.json` los otros dos), así que el lockfile incluye ambas plataformas.
+
+> Cada binario va **fijado a la versión exacta** del paquete que lo usa. Al actualizar `sharp`, `vite` o `rolldown` hay que revisar que las versiones sigan coincidiendo.
+
+Para comprobarlo sin esperar a Render, basta con listar los binarios que quedaron en el lockfile:
+
+```bash
+node -e "const p=require('./package-lock.json').packages; for (const [k,v] of Object.entries(p)) if (v.os) console.log(v.os[0], k.split('node_modules/').pop(), v.version)"
+```
+
+Deben aparecer las dos plataformas de cada uno. Si tienes WSL, la prueba definitiva es correr ahí el mismo `npm install && npm run build` con Node 22.
 
 ### Sobre el plan gratuito de Render
 
